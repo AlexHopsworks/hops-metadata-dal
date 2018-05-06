@@ -343,4 +343,16 @@ public class TablesDef {
     String EXPIRATION_TIME = "expiration_time";
     String STATE = "state";
   }
+  
+  public interface ProvenanceLogTableDef {
+
+    String TABLE_NAME = "hdfs_provenance_log";
+    String PROJECT_ID = "project_id";
+    String DATASET_ID = "dataset_id";
+    String INODE_ID = "inode_id";
+    String USER_ID = "user_id";
+    String LOGICAL_TIME = "logical_time";
+    String OPERATION = "operation";
+  }
+
 }
