@@ -20,7 +20,7 @@ import io.hops.metadata.common.EntityDataAccess;
 import java.util.Collection;
 
 public interface ProvenanceLogDataAccess<T> extends EntityDataAccess {
-  void add(T metadataLogEntry) throws StorageException;
+  void add(T logEntry) throws StorageException;
 
   void addAll(Collection<T> logEntries) throws StorageException;
 

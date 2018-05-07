@@ -17,34 +17,31 @@ package io.hops.metadata.hdfs.entity;
 
 public class ProvenanceLogEntry {
 
-  private final int projectId;
-  private final int datasetId;
   private final int inodeId;
   private final int userId;
-  private int logicalTime;
+  private final int appId;
+  private final int logicalTime;
+  private final String projectName;
+  private final String datasetName;
+  private final String userName;
   private final Operation operation;
 
   public enum Operation {
     READ
   }
 
-  public ProvenanceLogEntry(int projectId, int datasetId, int inodeId, int userId, int logicalTime, Operation operation) {
-    this.projectId = projectId;
-    this.datasetId = datasetId;
+  public ProvenanceLogEntry(int inodeId, int userId, int appId, int logicalTime,
+    String projectName, String datasetName, String userName, Operation operation) {
     this.inodeId = inodeId;
     this.userId = userId;
+    this.appId = appId;
     this.logicalTime = logicalTime;
+    this.projectName = projectName;
+    this.datasetName = datasetName;
+    this.userName = userName;
     this.operation = operation;
   }
-
-  public int getProjectId() {
-    return projectId;
-  }
-
-  public int getDatasetId() {
-    return datasetId;
-  }
-
+  
   public int getInodeId() {
     return inodeId;
   }
@@ -53,10 +50,26 @@ public class ProvenanceLogEntry {
     return userId;
   }
 
+  public int getAppId() {
+    return appId;
+  }
+
   public int getLogicalTime() {
     return logicalTime;
   }
 
+  public String getProjectName() {
+    return projectName;
+  }
+
+  public String getDatasetName() {
+    return datasetName;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+  
   public Operation getOperation() {
     return operation;
   }
@@ -68,11 +81,13 @@ public class ProvenanceLogEntry {
   @Override
   public String toString() {
     return "ProvenanceLogEntry{"
-      + "projectId=" + projectId
-      + ", datasetId=" + datasetId
-      + ", inodeId=" + inodeId
+      + "inodeId=" + inodeId
       + ", userId=" + userId
+      + ", appId=" + appId
       + ", logicalTime=" + logicalTime
+      + ", projectName=" + projectName
+      + ", datasetName=" + datasetName
+      + ", userName=" + userName
       + ", operation=" + operation
       + '}';
   }
