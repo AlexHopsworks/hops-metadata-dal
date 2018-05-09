@@ -19,10 +19,12 @@ public class ProvenanceLogEntry {
 
   private final int inodeId;
   private final int userId;
-  private final int appId;
+  private final String appId;
   private final int logicalTime;
+  private final int parentId;
   private final String projectName;
   private final String datasetName;
+  private final String inodeName;
   private final String userName;
   private final Operation operation;
 
@@ -30,18 +32,22 @@ public class ProvenanceLogEntry {
     READ
   }
 
-  public ProvenanceLogEntry(int inodeId, int userId, int appId, int logicalTime,
-    String projectName, String datasetName, String userName, Operation operation) {
+  public ProvenanceLogEntry(int inodeId, int userId, String appId,
+    int logicalTime,
+    int parentId, String projectName, String datasetName, String inodeName,
+    String userName, Operation operation) {
     this.inodeId = inodeId;
     this.userId = userId;
     this.appId = appId;
     this.logicalTime = logicalTime;
+    this.parentId = parentId;
     this.projectName = projectName;
     this.datasetName = datasetName;
+    this.inodeName = inodeName;
     this.userName = userName;
     this.operation = operation;
   }
-  
+
   public int getInodeId() {
     return inodeId;
   }
@@ -50,7 +56,7 @@ public class ProvenanceLogEntry {
     return userId;
   }
 
-  public int getAppId() {
+  public String getAppId() {
     return appId;
   }
 
@@ -58,6 +64,10 @@ public class ProvenanceLogEntry {
     return logicalTime;
   }
 
+  public int getParentId() {
+    return parentId;
+  }
+  
   public String getProjectName() {
     return projectName;
   }
@@ -66,14 +76,18 @@ public class ProvenanceLogEntry {
     return datasetName;
   }
 
+  public String getInodeName() {
+    return inodeName;
+  }
+
   public String getUserName() {
     return userName;
   }
-  
+
   public Operation getOperation() {
     return operation;
   }
-  
+
   public short getOperationOrdinal() {
     return (short) operation.ordinal();
   }
@@ -85,8 +99,10 @@ public class ProvenanceLogEntry {
       + ", userId=" + userId
       + ", appId=" + appId
       + ", logicalTime=" + logicalTime
+      + ", parentId=" + parentId
       + ", projectName=" + projectName
       + ", datasetName=" + datasetName
+      + ", inodeName=" + inodeName
       + ", userName=" + userName
       + ", operation=" + operation
       + '}';

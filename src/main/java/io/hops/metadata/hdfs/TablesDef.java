@@ -350,9 +350,11 @@ public class TablesDef {
     String INODE_ID = "inode_id";
     String USER_ID = "user_id";
     String APP_ID = "app_id";
+    String PARRENT_ID = "parent_id";
     String LOGICAL_TIME = "logical_time";
     String PROJECT_NAME = "project_name";
     String DATASET_NAME = "dataset_name";
+    String INODE_NAME = "inode_name";
     String USER_NAME = "user_name";
     String OPERATION = "operation";
   }
