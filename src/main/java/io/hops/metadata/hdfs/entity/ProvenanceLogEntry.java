@@ -29,7 +29,7 @@ public class ProvenanceLogEntry {
   private final Operation operation;
 
   public enum Operation {
-    READ
+    CREATE, READ, APPEND, DELETE, METADATA, OTHER
   }
 
   public ProvenanceLogEntry(int inodeId, int userId, String appId,
