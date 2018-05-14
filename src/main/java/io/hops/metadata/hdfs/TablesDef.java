@@ -350,8 +350,12 @@ public class TablesDef {
     String INODE_ID = "inode_id";
     String USER_ID = "user_id";
     String APP_ID = "app_id";
-    String PARRENT_ID = "parent_id";
+    String PARENT_ID = "parent_id";
+    String PARTITION_ID = "partition_id";
     String LOGICAL_TIME = "logical_time";
+    String LOGICAL_TIME_BATCH = "logical_time_batch";
+    String TIMESTAMP = "timestamp";
+    String TIMESTAMP_BATCH = "timestamp_batch";
     String PROJECT_NAME = "project_name";
     String DATASET_NAME = "dataset_name";
     String INODE_NAME = "inode_name";

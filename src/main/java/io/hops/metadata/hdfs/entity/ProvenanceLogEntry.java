@@ -21,7 +21,11 @@ public class ProvenanceLogEntry {
   private final int userId;
   private final String appId;
   private final int logicalTime;
+  private final int logicalTimeBatch;
+  private final long timestamp;
+  private final long timestampBatch;
   private final int parentId;
+  private final int partitionId;
   private final String projectName;
   private final String datasetName;
   private final String inodeName;
@@ -33,14 +37,18 @@ public class ProvenanceLogEntry {
   }
 
   public ProvenanceLogEntry(int inodeId, int userId, String appId,
-    int logicalTime,
-    int parentId, String projectName, String datasetName, String inodeName,
-    String userName, Operation operation) {
+    int logicalTime, int logicalTimeBatch, long timestamp, long timestampBatch,
+    int parentId, int partitionId, String projectName, String datasetName, 
+    String inodeName, String userName, Operation operation) {
     this.inodeId = inodeId;
     this.userId = userId;
     this.appId = appId;
     this.logicalTime = logicalTime;
+    this.logicalTimeBatch = logicalTimeBatch;
+    this.timestamp = timestamp;
+    this.timestampBatch = timestampBatch;
     this.parentId = parentId;
+    this.partitionId = parentId;
     this.projectName = projectName;
     this.datasetName = datasetName;
     this.inodeName = inodeName;
@@ -64,10 +72,26 @@ public class ProvenanceLogEntry {
     return logicalTime;
   }
 
+  public int getLogicalTimeBatch() {
+    return logicalTimeBatch;
+  }
+
+  public long getTimestamp() {
+    return timestamp;
+  }
+
+  public long getTimestampBatch() {
+    return timestampBatch;
+  }
+
   public int getParentId() {
     return parentId;
   }
-  
+
+  public int getPartitionId() {
+    return partitionId;
+  }
+
   public String getProjectName() {
     return projectName;
   }
@@ -99,7 +123,11 @@ public class ProvenanceLogEntry {
       + ", userId=" + userId
       + ", appId=" + appId
       + ", logicalTime=" + logicalTime
+      + ", logicalTimeBatch=" + logicalTimeBatch
+      + ", timestamp=" + timestamp
+      + ", timestampBatch=" + timestampBatch
       + ", parentId=" + parentId
+      + ", partitionId=" + partitionId
       + ", projectName=" + projectName
       + ", datasetName=" + datasetName
       + ", inodeName=" + inodeName
