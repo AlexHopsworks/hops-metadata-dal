@@ -32,8 +32,69 @@ public class ProvenanceLogEntry {
   private final String userName;
   private final Operation operation;
 
-  public enum Operation {
-    READ, APPEND, DELETE, METADATA, OTHER
+  public static enum Operation {
+    READ,
+    APPEND,
+    DELETE,
+    METADATA,
+    OTHER;
+
+    public static ProvenanceLogEntry.Operation mkdirs() {
+      return Operation.OTHER;
+    }
+      
+    public static ProvenanceLogEntry.Operation getBlockLocations() {
+      return Operation.READ;
+    }
+    
+    public static ProvenanceLogEntry.Operation append() {
+      return Operation.APPEND;
+    }
+    
+    public static ProvenanceLogEntry.Operation delete() {
+      return Operation.DELETE;
+    }
+    
+    public static ProvenanceLogEntry.Operation concat() {
+      return Operation.OTHER;
+    }
+    
+    public static ProvenanceLogEntry.Operation createSymlink() {
+      return Operation.OTHER;
+    }
+    
+    public static ProvenanceLogEntry.Operation setPermission() {
+      return Operation.METADATA;
+    }
+
+    public static ProvenanceLogEntry.Operation setOwner() {
+      return Operation.METADATA;
+    }
+    
+    public static ProvenanceLogEntry.Operation setTimes() {
+      return Operation.OTHER;
+    }
+    
+    public static ProvenanceLogEntry.Operation setReplication() {
+      return Operation.OTHER;
+    }
+    
+    public static ProvenanceLogEntry.Operation setMetaEnabled() {
+      return Operation.OTHER;
+    }
+    
+    public static ProvenanceLogEntry.Operation setStoragePolicy() {
+      return Operation.OTHER;
+    }
+    
+    public static ProvenanceLogEntry.Operation getfileinfo() {
+      return Operation.OTHER;
+    }
+    
+    public static ProvenanceLogEntry.Operation listStatus() {
+      return Operation.OTHER;
+    }
+    
   }
 
   public ProvenanceLogEntry(int inodeId, int userId, String appId,
