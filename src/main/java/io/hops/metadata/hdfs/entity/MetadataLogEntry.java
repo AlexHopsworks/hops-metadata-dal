@@ -16,21 +16,24 @@
 package io.hops.metadata.hdfs.entity;
 
 public class MetadataLogEntry {
-  private final int datasetId;
-  private final int inodeId;
-  private final int inodePartitionId;
-  private final int inodeParentId;
+  private final long datasetId;
+  private final long inodeId;
+  private final long inodePartitionId;
+  private final long inodeParentId;
   private final String inodeName;
   private int logicalTime;
   private final Operation operation;
 
   public enum Operation {
     ADD,
-    DELETE
+    DELETE,
+    UPDATE,
+    RENAME,
+    CHANGEDATASET
   }
 
-  public MetadataLogEntry(int datasetId, int inodeId, int inodePartitionId,
-      int inodeParentId, String inodeName, int logicalTime, Operation
+  public MetadataLogEntry(long datasetId, long inodeId, long inodePartitionId,
+      long inodeParentId, String inodeName, int logicalTime, Operation
       operation) {
     this.datasetId = datasetId;
     this.inodeId = inodeId;
@@ -41,11 +44,11 @@ public class MetadataLogEntry {
     this.operation = operation;
   }
 
-  public int getDatasetId() {
+  public long getDatasetId() {
     return datasetId;
   }
 
-  public int getInodeId() {
+  public long getInodeId() {
     return inodeId;
   }
 
@@ -61,11 +64,11 @@ public class MetadataLogEntry {
     return (short) operation.ordinal();
   }
 
-  public int getInodePartitionId() {
+  public long getInodePartitionId() {
     return inodePartitionId;
   }
 
-  public int getInodeParentId() {
+  public long getInodeParentId() {
     return inodeParentId;
   }
 

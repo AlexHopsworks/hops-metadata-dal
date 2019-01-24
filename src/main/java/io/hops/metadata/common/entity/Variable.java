@@ -45,8 +45,8 @@ public abstract class Variable {
     HdfsLeParams,
     YarnLeParams,
     MisReplicatedFilesIndex,
-    ClusterInSafeMode,
-    BrLbMaxBlkPerTW,
+    SafeModeReached,
+    BrLbMaxConcurrentBRs,
     RMStateStoreVersion,
     RMStateStoreEpoch,
     AMRMToken,
@@ -59,7 +59,17 @@ public abstract class Variable {
     GenericByteArray,
     GenericArray,
     Seed,
-    StorageMap; // TODO do we need this?
+    StorageMap,  // TODO do we need this?
+    CacheDirectiveID,
+    neededScanCount,
+    RollingUpgradeInfo,
+    SafeModeInfo,
+    GenericDouble,
+    BlockTotal,
+    BlockThreshold,
+    BlockReplicationQueueThreshold,
+    completedScanCount,
+    curScanCount;
 
     public int getId() {
       return this.ordinal();
@@ -127,7 +137,7 @@ public abstract class Variable {
       case BlockID:
         return new LongVariable(varType);
       case INodeID:
-        return new IntVariable(varType);
+        return new LongVariable(varType);
       case QuotaUpdateID:
         return new IntVariable(varType);
       case ReplicationIndex:
@@ -147,9 +157,9 @@ public abstract class Variable {
         return new StringVariable(varType);
       case MisReplicatedFilesIndex:
         return new LongVariable(varType);
-      case ClusterInSafeMode:
-        return new IntVariable(varType);
-      case BrLbMaxBlkPerTW:
+      case SafeModeReached:
+        return new LongVariable(varType);
+      case BrLbMaxConcurrentBRs:
         return new LongVariable(varType);
       case RMStateStoreVersion:
         return new ByteArrayVariable(varType);
@@ -163,6 +173,25 @@ public abstract class Variable {
         return new LongVariable(varType);
       case Seed:
         return new ByteArrayVariable(varType);
+      case CacheDirectiveID:
+        return new LongVariable(varType);
+      case neededScanCount:
+        return new IntVariable(varType);
+      case completedScanCount:
+        return new IntVariable(varType);
+      case curScanCount:
+        return new IntVariable(varType);
+      case RollingUpgradeInfo:
+        return new ByteArrayVariable(varType);
+      case SafeModeInfo:
+        return new ArrayVariable(varType);
+      case GenericDouble:
+        return new DoubleVariable(varType);
+      case BlockTotal:
+      case BlockThreshold:
+      case BlockReplicationQueueThreshold:
+        return new IntVariable(varType);
+        
     }
     return null;
   }

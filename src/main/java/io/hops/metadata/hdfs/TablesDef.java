@@ -28,6 +28,7 @@ public class TablesDef {
     String STORAGE_ID="storage_id";
     String HOST_ID="host_id";
     String STORAGE_TYPE="storage_type";
+    String STATE = "state";
   }
   
   public interface INodeTableDef {
@@ -45,7 +46,6 @@ public class TablesDef {
     String PERMISSION = "permission";
     String CLIENT_NAME = "client_name";
     String CLIENT_MACHINE = "client_machine";
-    String CLIENT_NODE = "client_node";
     String GENERATION_STAMP = "generation_stamp";
     String HEADER = "header";
     String SYMLINK = "symlink";
@@ -208,7 +208,8 @@ public class TablesDef {
   public interface MisReplicatedRangeQueueTableDef {
 
     String TABLE_NAME = "hdfs_misreplicated_range_queue";
-    String RANGE = "range";
+    String NNID = "nn_id";
+    String START_INDEX = "start_index";
   }
 
   public interface PendingBlockTableDef {
@@ -271,6 +272,7 @@ public class TablesDef {
     String INODE_ID = "inode_id";
     String LEVEL = "level";
     String TIMESTAMP = "timestamp";
+    String EXPECTEDREPLICAS = "expected_replicas";
   }
 
   public interface VariableTableDef {
@@ -317,7 +319,6 @@ public class TablesDef {
     String NAME_NODE_ID = "namenode_id";
     String OP_NAME = "op_name";
     String PARTITION_ID = "partition_id";
-    int LIMIT = 2;
   }
 
   public interface HashBucketsTableDef {
@@ -345,7 +346,57 @@ public class TablesDef {
     String EXPIRATION_TIME = "expiration_time";
     String STATE = "state";
   }
+
+  public interface CacheDirectiveTableDef {
+    String TABLE_NAME = "hdfs_cache_directive";
+    String ID = "id";
+    String REPLICATION = "replication";
+    String EXPIRYTIME = "expirytime";
+    String BYTES_NEEDED = "bytes_needed";
+    String BYTES_CACHED = "bytes_cached";
+    String FILES_NEEDED = "files_needed";
+    String FILES_CACHED = "files_cached";
+    String POOL = "pool";
+  }
+
+  public interface CacheDirectivePathTableDef {
+    String TABLE_NAME = "hdfs_cache_directive_path";
+    String ID = "id";
+    String INDEX = "index";
+    String VALUE = "value";
+  }
+
+  public interface CachePoolTableDef {
+    String TABLE_NAME = "hdfs_cache_pool";
+    String POOL_NAME = "pool_name";
+    String OWNER_NAME = "owner_name";
+    String GROUP_NAME = "group_name";
+    String MODE = "mode";
+    String LIMIT = "limit";
+    String MAX_RELATIVE_EXPIRY_MS = "max_relative_expiry_ms";
+    String BYTES_NEEDED = "bytes_needed";
+    String BYTES_CACHED = "bytes_cached";
+    String FILES_NEEDED = "files_needed";
+    String FILES_CACHED = "files_cached";
+  }
   
+  public interface CachedBlockTableDef {
+    String TABLE_NAME = "hdfs_cached_block";
+    String BLOCK_ID = "block_id";
+    String INODE_ID = "inode_id";
+    String DATANODE_ID = "datanode_id";
+    String STATUS = "status";
+    String REPLICATION_AND_MARK = "replication_and_mark";
+  }
+
+  public interface ActiveBlockReports {
+    String TABLE_NAME = "hdfs_active_block_reports";
+    String DN_ADDRESS = "dn_address";
+    String NN_ID = "nn_id";
+    String START_TIME = "start_time";
+    String NUM_BLOCKS = "num_blocks";
+  }
+
   public interface ProvenanceLogTableDef {
 
     String TABLE_NAME = "hdfs_provenance_log";
@@ -364,5 +415,4 @@ public class TablesDef {
     String USER_NAME = "user_name";
     String OPERATION = "operation";
   }
-
 }

@@ -94,8 +94,10 @@ public class EncodingStatus {
   public static enum Finder implements FinderType<EncodingStatus> {
     /** Use the file id to find the status */
     ByInodeId,
+    ByInodeIds,
     /** Use the parity file id to find the status */
-    ByParityInodeId;
+    ByParityInodeId,
+    ByParityInodeIds;
 
     @Override
     public Class getType() {
@@ -107,7 +109,11 @@ public class EncodingStatus {
       switch (this) {
         case ByInodeId:
           return Annotation.PrimaryKey;
+        case ByInodeIds:
+          return Annotation.Batched;
         case ByParityInodeId:
+          return Annotation.IndexScan;
+        case ByParityInodeIds:
           return Annotation.IndexScan;
         default:
           throw new IllegalStateException();
@@ -116,9 +122,9 @@ public class EncodingStatus {
 
   }
 
-  private Integer inodeId;
+  private Long inodeId;
   private boolean inTree;
-  private Integer parityInodeId;
+  private Long parityInodeId;
   private Status status;
   private ParityStatus parityStatus;
   private EncodingPolicy encodingPolicy;
@@ -174,12 +180,12 @@ public class EncodingStatus {
    *    the encoding policy of the file
    * @param statusModificationTime
    */
-  public EncodingStatus(Integer inodeId, Status status,
+  public EncodingStatus(Long inodeId, Status status,
       EncodingPolicy encodingPolicy, Long statusModificationTime) {
     this(inodeId, true, status, encodingPolicy, statusModificationTime);
   }
   
-  public EncodingStatus(Integer inodeId, boolean inTree, Status status,
+  public EncodingStatus(Long inodeId, boolean inTree, Status status,
       EncodingPolicy encodingPolicy, Long statusModificationTime) {
     this.inodeId = inodeId;
     this.inTree = inTree;
@@ -214,7 +220,7 @@ public class EncodingStatus {
    * @param revoked
    *    true if the encoding was revoked
    */
-  public EncodingStatus(Integer inodeId, Integer parityInodeId, Status status,
+  public EncodingStatus(Long inodeId, Long parityInodeId, Status status,
       ParityStatus parityStatus, EncodingPolicy encodingPolicy,
       Long statusModificationTime, Long parityStatusModificationTime,
       String parityFileName, Integer lostBlocks, Integer lostParityBlocks,
@@ -223,7 +229,7 @@ public class EncodingStatus {
         parityStatusModificationTime, parityFileName, lostBlocks, lostParityBlocks, revoked);
   }
   
-  public EncodingStatus(Integer inodeId, boolean inTree, Integer parityInodeId, Status status,
+  public EncodingStatus(Long inodeId, boolean inTree, Long parityInodeId, Status status,
       ParityStatus parityStatus, EncodingPolicy encodingPolicy,
       Long statusModificationTime, Long parityStatusModificationTime,
       String parityFileName, Integer lostBlocks, Integer lostParityBlocks,
@@ -263,7 +269,7 @@ public class EncodingStatus {
    * @return
    *    the inode id of the file
    */
-  public Integer getInodeId() {
+  public Long getInodeId() {
     return inodeId;
   }
 
@@ -277,11 +283,11 @@ public class EncodingStatus {
    * @param inodeId
    *    the inode id of the file
    */
-  public void setInodeId(Integer inodeId) {
+  public void setInodeId(Long inodeId) {
     setInodeId(inodeId, true);
   }
   
-  public void setInodeId(Integer inodeId, boolean inTree) {
+  public void setInodeId(Long inodeId, boolean inTree) {
     this.inodeId = inodeId;
     this.inTree = inTree;
   }
@@ -292,7 +298,7 @@ public class EncodingStatus {
    * @return
    *    the inode id of the parity file
    */
-  public Integer getParityInodeId() {
+  public Long getParityInodeId() {
     return parityInodeId;
   }
 
@@ -302,7 +308,7 @@ public class EncodingStatus {
    * @param parityInodeId
    *    the inode id of the parity ifle
    */
-  public void setParityInodeId(Integer parityInodeId) {
+  public void setParityInodeId(Long parityInodeId) {
     this.parityInodeId = parityInodeId;
   }
 

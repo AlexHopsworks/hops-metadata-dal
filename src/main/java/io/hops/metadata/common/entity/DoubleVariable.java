@@ -17,46 +17,41 @@ package io.hops.metadata.common.entity;
 
 import java.nio.ByteBuffer;
 
-public class LongVariable extends Variable {
+public class DoubleVariable extends Variable {
 
-  private Long value;
+  private Double value;
 
-  public LongVariable(Finder type, long value) {
+  public DoubleVariable(Finder type, double value) {
     this(type);
     this.value = value;
   }
 
-  public LongVariable(Finder type) {
+  public DoubleVariable(Finder type) {
     super(type);
   }
 
-  public LongVariable(long value) {
-    this(Finder.GenericLong, value);
+  public DoubleVariable(double value) {
+    this(Finder.GenericDouble, value);
   }
 
   @Override
-  public Long getValue() {
+  public Double getValue() {
     return value;
   }
 
   @Override
   public void setValue(byte[] val) {
     if (val.length != getLength()) {
-      //it sometime (updates) happen that we want to convert a int to a long
-      if(val.length == 4){
-        ByteBuffer buf = ByteBuffer.wrap(val);
-        value = new Long(buf.getInt());
-      }
       return;
     }
     ByteBuffer buf = ByteBuffer.wrap(val);
-    value = buf.getLong();
+    value = buf.getDouble();
   }
 
   @Override
   public byte[] getBytes() {
     ByteBuffer buf = ByteBuffer.allocate(getLength());
-    buf.putLong(value);
+    buf.putDouble(value);
     return buf.array();
   }
 
@@ -67,6 +62,6 @@ public class LongVariable extends Variable {
 
   @Override
   public String toString() {
-    return Long.toString(value);
+    return Double.toString(value);
   }
 }

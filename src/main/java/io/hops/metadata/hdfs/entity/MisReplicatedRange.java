@@ -13,23 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.hops;
+package io.hops.metadata.hdfs.entity;
 
-import io.hops.exception.StorageException;
-import io.hops.exception.StorageInitializtionException;
-import io.hops.metadata.common.EntityDataAccess;
 
-import java.util.Properties;
+public class MisReplicatedRange {
+  final long nnId;
+  final long startIndex;
 
-public interface DalStorageFactory {
+  public MisReplicatedRange(long nnId, long startIndex) {
+    this.nnId = nnId;
+    this.startIndex = startIndex;
+  }
 
-  public void setConfiguration(Properties conf)
-      throws StorageInitializtionException;
+  public long getNnId() {
+    return nnId;
+  }
 
-  public StorageConnector getConnector();
-
-  public EntityDataAccess getDataAccess(Class type);
-  
-  public boolean hasResources(double threshold) throws StorageException;
+  public long getStartIndex() {
+    return startIndex;
+  }
   
 }

@@ -17,18 +17,25 @@ package io.hops.metadata.hdfs.dal;
 
 import io.hops.exception.StorageException;
 import io.hops.metadata.common.EntityDataAccess;
-import io.hops.metadata.hdfs.entity.MisReplicatedRange;
+import java.util.Collection;
 import java.util.List;
 
-public interface MisReplicatedRangeQueueDataAccess extends EntityDataAccess {
-  
-  void insert(MisReplicatedRange range) throws StorageException;
+public interface CachedBlockDataAccess<T> extends EntityDataAccess {
 
-  void remove(MisReplicatedRange range) throws StorageException;
-  
-  void remove(List<MisReplicatedRange> range) throws StorageException;
+  void prepare(Collection<T> removed, Collection<T> newed, Collection<T> modified) throws StorageException;
 
-  List<MisReplicatedRange> getAll() throws StorageException;
+  T find(long blockId, long inodeId, String datanodeId) throws StorageException;
   
-  int countAll() throws StorageException;
+  List<T> findCachedBlockById(long blockId) throws StorageException;
+  
+  List<T> findCachedBlockByINodeId(long inodeId) throws StorageException;
+  
+  List<T> findCachedBlockByINodeIds(long[] inodeIds) throws StorageException;
+  
+  List<T> findByIds(long[] blockIds, long[] inodeIds, String datanodeId) throws StorageException;
+  
+  List<T> findCachedBlockByDatanodeId(String datanodeId) throws StorageException;
+  
+  List<T> findAll() throws StorageException;
+  
 }

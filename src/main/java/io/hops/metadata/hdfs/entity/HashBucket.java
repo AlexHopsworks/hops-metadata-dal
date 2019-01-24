@@ -23,9 +23,10 @@ import io.hops.metadata.common.FinderType;
 import io.hops.transaction.EntityManager;
 
 public class HashBucket {
-  
+
   public enum Finder implements FinderType<HashBucket> {
-    ByStorageIdAndBucketId;
+    ByStorageIdAndBucketId,
+    ByStorageId;
   
     @Override
     public Class getType() {
@@ -37,6 +38,8 @@ public class HashBucket {
       switch (this){
         case ByStorageIdAndBucketId:
           return Annotation.PrimaryKey;
+        case ByStorageId:
+          return Annotation.IndexScan;
         default:
           throw new IllegalStateException();
       }
@@ -70,7 +73,7 @@ public class HashBucket {
     this.hash = hash;
     EntityManager.update(this);
   }
-  
+
   public static class PrimaryKey {
     private int bucketId;
     private int storageId;
@@ -97,12 +100,21 @@ public class HashBucket {
       }
       return false;
     }
-  
+
     @Override
     public int hashCode() {
       //TODO: Do we need to implement stronger hash code?
       //Collisions not dangerous, only used for HashMap key.
       return bucketId * storageId;
     }
+  }
+
+  @Override
+  public String toString() {
+    return "HashBucket{" +
+            "storageId=" + storageId +
+            ", bucketId=" + bucketId +
+            ", hash=" + hash +
+            '}';
   }
 }

@@ -15,13 +15,15 @@
  */
 package io.hops.metadata.hdfs.entity;
 
+import java.util.Objects;
+
 public abstract class ReplicaBase implements Comparable<ReplicaBase> {
 
   protected int storageId;
   protected long blockId;
-  private int inodeId;
+  protected long inodeId;
 
-  public ReplicaBase(int storageId, long blockId, int inodeId) {
+  public ReplicaBase(int storageId, long blockId, long inodeId) {
     this.storageId = storageId;
     this.blockId = blockId;
     this.inodeId = inodeId;
@@ -57,7 +59,7 @@ public abstract class ReplicaBase implements Comparable<ReplicaBase> {
     this.blockId = blockId;
   }
 
-  public int getInodeId() {
+  public long getInodeId() {
     return inodeId;
   }
 
@@ -67,53 +69,42 @@ public abstract class ReplicaBase implements Comparable<ReplicaBase> {
 
   @Override
   public int hashCode() {
-    int hash = 7;
-    hash = 59 * hash + this.storageId;
-    hash = 59 * hash + (int) (this.blockId ^ (this.blockId >>> 32));
-    return hash;
+    return Objects.hash(storageId,inodeId,blockId);
   }
 
   @Override
-  public boolean equals(Object obj) {
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final ReplicaBase other = (ReplicaBase) obj;
-    if (this.storageId != other.storageId) {
-      return false;
-    }
-    if (this.blockId != other.blockId) {
-      return false;
-    }
-    return true;
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    if (!super.equals(o)) return false;
+    Replica replica = (Replica) o;
+
+    return (storageId == replica.storageId &&
+            blockId == replica.blockId);
   }
 
   @Override
   public int compareTo(ReplicaBase t) {
-    if (this.equals(t)) {
-      return 0;
-    }
-
     if (t == null) {
       return 1;
     }
-    
-    if (this.getStorageId() == t.getStorageId()) {
-      if (this.getBlockId() > t.getBlockId()) {
-        return 1;
-      } else {
-        return -1;
-      }
-    } else {
-      if (this.getStorageId() > t.getStorageId()) {
-        return 1;
-      } else {
-        return -1;
-      }
+
+    int compVal = new Integer(storageId).compareTo(t.storageId);
+    if(compVal != 0){
+      return  compVal;
     }
+
+    compVal = new Long(inodeId).compareTo(t.inodeId);
+    if(compVal != 0){
+      return  compVal;
+    }
+
+    compVal = new Long(blockId).compareTo(t.blockId);
+    if(compVal != 0){
+      return  compVal;
+    }
+
+    return 0;
   }
 
   @Override

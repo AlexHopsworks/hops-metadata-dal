@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.hops;
+package io.hops.metadata.hdfs.dal;
 
 import io.hops.exception.StorageException;
-import io.hops.exception.StorageInitializtionException;
 import io.hops.metadata.common.EntityDataAccess;
+import java.util.Collection;
 
-import java.util.Properties;
+public interface CacheDirectiveDataAccess<T> extends EntityDataAccess {
 
-public interface DalStorageFactory {
-
-  public void setConfiguration(Properties conf)
-      throws StorageInitializtionException;
-
-  public StorageConnector getConnector();
-
-  public EntityDataAccess getDataAccess(Class type);
+  T find(long key) throws StorageException;
   
-  public boolean hasResources(double threshold) throws StorageException;
+  Collection<T> findAll() throws StorageException;
   
+  Collection<T> findByPool(final String pool) throws StorageException;
+  
+  Collection<T> findByIdAndPool(final long id, final String pool) throws StorageException;
+  
+  void prepare(Collection<T> removed, Collection<T> modified) throws StorageException;
 }

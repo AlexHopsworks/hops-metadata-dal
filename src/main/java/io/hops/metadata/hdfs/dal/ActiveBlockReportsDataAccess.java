@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.hops;
+package io.hops.metadata.hdfs.dal;
 
 import io.hops.exception.StorageException;
-import io.hops.exception.StorageInitializtionException;
 import io.hops.metadata.common.EntityDataAccess;
+import io.hops.metadata.hdfs.entity.ActiveBlockReport;
 
-import java.util.Properties;
+import java.util.List;
 
-public interface DalStorageFactory {
+public interface ActiveBlockReportsDataAccess<T> extends EntityDataAccess{
 
-  public void setConfiguration(Properties conf)
-      throws StorageInitializtionException;
+  int countActiveRports() throws StorageException;
 
-  public StorageConnector getConnector();
+  void addActiveReport(ActiveBlockReport abr) throws StorageException;
 
-  public EntityDataAccess getDataAccess(Class type);
-  
-  public boolean hasResources(double threshold) throws StorageException;
-  
+  void removeActiveReport(ActiveBlockReport abr) throws StorageException;
+
+  List<T> getAll() throws StorageException;
 }

@@ -15,6 +15,14 @@
  */
 package io.hops.util;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+
 public class Slicer {
 
   public interface OperationHandler {
@@ -22,8 +30,9 @@ public class Slicer {
     public void handle(int startIndex, int endIndex) throws Exception;
   }
 
-  public static void slice(final int total, final int sliceSize,
-      OperationHandler op) throws Exception {
+  public static void slice(final int total, final int sliceSize, final int nbThreads, ExecutorService executor,
+      OperationHandler op) throws
+      Exception {
     if (total == 0) {
       return;
     }
@@ -33,10 +42,45 @@ public class Slicer {
     } else {
       numOfSlices = (int) Math.ceil(((double) total) / sliceSize);
     }
+
+    Semaphore semaphore = new Semaphore(nbThreads);
+    
+    List<Future<Object>> futures = new ArrayList<>();
+    
     for (int slice = 0; slice < numOfSlices; slice++) {
       int startIndex = slice * sliceSize;
       int endIndex = Math.min((slice + 1) * sliceSize, total);
-      op.handle(startIndex, endIndex);
+      semaphore.acquire();
+      futures.add(executor.submit(new SliceRunner(op, startIndex, endIndex, semaphore)));
+    }
+
+    for(Future<Object> futur: futures){
+      futur.get();
+    }
+  }
+
+  private static class SliceRunner implements Callable<Object> {
+
+    final OperationHandler op;
+    final int startIndex;
+    final int endIndex;
+    final Semaphore semaphore;
+    
+    public SliceRunner(OperationHandler op, int startIndex, int endIndex, Semaphore semaphore) {
+      this.op = op;
+      this.startIndex = startIndex;
+      this.endIndex = endIndex;
+      this.semaphore = semaphore;
+    }
+
+    @Override
+    public Object call() throws Exception{
+      try {
+        op.handle(startIndex, endIndex);
+        return null;
+      }finally{
+        semaphore.release();
+      }
     }
   }
 }
