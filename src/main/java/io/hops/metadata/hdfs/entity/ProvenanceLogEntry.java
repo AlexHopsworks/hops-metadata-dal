@@ -17,15 +17,15 @@ package io.hops.metadata.hdfs.entity;
 
 public class ProvenanceLogEntry {
 
-  private final int inodeId;
+  private final long inodeId;
   private final int userId;
   private final String appId;
   private final int logicalTime;
   private final int logicalTimeBatch;
   private final long timestamp;
   private final long timestampBatch;
-  private final int parentId;
-  private final int partitionId;
+  private final long parentId;
+  private final long partitionId;
   private final String projectName;
   private final String datasetName;
   private final String inodeName;
@@ -33,22 +33,30 @@ public class ProvenanceLogEntry {
   private final Operation operation;
 
   public static enum Operation {
-    READ,
-    APPEND,
+    ACCESS,
+    MODIFY,
     DELETE,
     METADATA,
     OTHER;
 
+    public static ProvenanceLogEntry.Operation dirCreateFile() {
+      return Operation.MODIFY;
+    }
+    
+    public static ProvenanceLogEntry.Operation dirDeleteFile() {
+      return Operation.MODIFY;
+    }
+    
     public static ProvenanceLogEntry.Operation mkdirs() {
       return Operation.OTHER;
     }
       
     public static ProvenanceLogEntry.Operation getBlockLocations() {
-      return Operation.READ;
+      return Operation.ACCESS;
     }
     
     public static ProvenanceLogEntry.Operation append() {
-      return Operation.APPEND;
+      return Operation.MODIFY;
     }
     
     public static ProvenanceLogEntry.Operation delete() {
@@ -97,9 +105,9 @@ public class ProvenanceLogEntry {
     
   }
 
-  public ProvenanceLogEntry(int inodeId, int userId, String appId,
+  public ProvenanceLogEntry(long inodeId, int userId, String appId,
     int logicalTime, int logicalTimeBatch, long timestamp, long timestampBatch,
-    int parentId, int partitionId, String projectName, String datasetName, 
+    long parentId, long partitionId, String projectName, String datasetName, 
     String inodeName, String userName, Operation operation) {
     this.inodeId = inodeId;
     this.userId = userId;
@@ -109,7 +117,7 @@ public class ProvenanceLogEntry {
     this.timestamp = timestamp;
     this.timestampBatch = timestampBatch;
     this.parentId = parentId;
-    this.partitionId = parentId;
+    this.partitionId = partitionId;
     this.projectName = projectName;
     this.datasetName = datasetName;
     this.inodeName = inodeName;
@@ -117,7 +125,7 @@ public class ProvenanceLogEntry {
     this.operation = operation;
   }
 
-  public int getInodeId() {
+  public long getInodeId() {
     return inodeId;
   }
 
@@ -145,11 +153,11 @@ public class ProvenanceLogEntry {
     return timestampBatch;
   }
 
-  public int getParentId() {
+  public long getParentId() {
     return parentId;
   }
 
-  public int getPartitionId() {
+  public long getPartitionId() {
     return partitionId;
   }
 
