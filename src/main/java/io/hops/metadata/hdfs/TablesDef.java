@@ -469,7 +469,9 @@ public class TablesDef {
     String PROJECT_NAME = "project_name";
     String DATASET_NAME = "dataset_name";
     String P1_NAME = "i_p1_name";
+    String P1_INODE_ID = "i_p1_id";
     String P2_NAME = "i_p2_name";
+    String P2_INODE_ID = "i_p2_id";
     String PARENT_NAME = "i_parent_name";
     String USER_NAME = "io_user_name";
     String XATTR_NAME = "i_xattr_name";
