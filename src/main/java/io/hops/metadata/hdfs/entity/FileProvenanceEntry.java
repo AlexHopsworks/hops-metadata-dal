@@ -35,6 +35,10 @@ public class FileProvenanceEntry {
   private final long p1InodeId;
   private final String p2Name;
   private final long p2InodeId;
+  private final String p3Name;
+  private final long p3InodeId;
+  private final String p4Name;
+  private final long p4InodeId;
   private final String parentName;
   private final String userName;
   private final String xattrName;
@@ -118,9 +122,10 @@ public class FileProvenanceEntry {
   public FileProvenanceEntry(long inodeId, Operation operation, int logicalTime, long timestamp, String appId,
                              int userId, String tieBreaker, long partitionId, long projectId, long datasetId,
                              long parentId, String inodeName, String projectName, String datasetName,
-                             String p1Name, long p1InodeId, String p2Name, long p2InodeId, String parentName,
-                             String userName, String xattrName, int logicalTimeBatch, long timestampBatch,
-                             int dsLogicalTime, byte[] xAttrValue) {
+                             String p1Name, long p1InodeId, String p2Name, long p2InodeId,
+                             String p3Name, long p3InodeId, String p4Name, long p4InodeId,
+                             String parentName, String userName, String xattrName, int logicalTimeBatch,
+                             long timestampBatch, int dsLogicalTime, byte[] xAttrValue) {
     this.inodeId = inodeId;
     this.operation = operation;
     this.logicalTime = logicalTime;
@@ -139,6 +144,10 @@ public class FileProvenanceEntry {
     this.p1InodeId = p1InodeId;
     this.p2Name = p2Name;
     this.p2InodeId = p2InodeId;
+    this.p3Name = p3Name;
+    this.p3InodeId = p3InodeId;
+    this.p4Name = p4Name;
+    this.p4InodeId = p4InodeId;
     this.parentName = parentName;
     this.userName = userName;
     this.xattrName = xattrName;
@@ -224,6 +233,22 @@ public class FileProvenanceEntry {
     return p2InodeId;
   }
   
+  public String getP3Name() {
+    return p3Name;
+  }
+  
+  public long getP3InodeId() {
+    return p3InodeId;
+  }
+  
+  public String getP4Name() {
+    return p4Name;
+  }
+  
+  public long getP4InodeId() {
+    return p4InodeId;
+  }
+  
   public String getParentName() {
     return parentName;
   }
@@ -273,6 +298,10 @@ public class FileProvenanceEntry {
       + ", p1InodeId=" + p1InodeId
       + ", p2Name=" + p2Name
       + ", p2InodeId=" + p2InodeId
+      + ", p3Name=" + p3Name
+      + ", p3InodeId=" + p3InodeId
+      + ", p4Name=" + p4Name
+      + ", p4InodeId=" + p4InodeId
       + ", parentName=" + parentName
       + ", userName=" + userName
       + ", xattrName=" + xattrName

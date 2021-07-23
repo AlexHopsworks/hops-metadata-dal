@@ -472,6 +472,10 @@ public class TablesDef {
     String P1_INODE_ID = "i_p1_id";
     String P2_NAME = "i_p2_name";
     String P2_INODE_ID = "i_p2_id";
+    String P3_NAME = "i_p3_name";
+    String P3_INODE_ID = "i_p3_id";
+    String P4_NAME = "i_p4_name";
+    String P4_INODE_ID = "i_p4_id";
     String PARENT_NAME = "i_parent_name";
     String USER_NAME = "io_user_name";
     String XATTR_NAME = "i_xattr_name";
